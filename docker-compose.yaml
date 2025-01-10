@@ -1,0 +1,24 @@
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse
+    ports:
+      - "8123:8123"
+      - "9000:9000" 
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+      - ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+
+  ssb_loader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ssb_loader
+    depends_on:
+      - clickhouse
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    command: ["bash", "/opt/load_data.sh"]
+
+volumes:
+  clickhouse_data:
