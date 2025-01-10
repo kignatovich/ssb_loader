@@ -11,7 +11,7 @@ services:
       CLICKHOUSE_PASSWORD: admin_password
     volumes:
       - clickhouse_data:/var/lib/clickhouse
-      - ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      #- ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
 
   ssb_loader:
     platform: linux/amd64
