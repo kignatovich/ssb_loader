@@ -1,6 +1,7 @@
 services:
   clickhouse:
     image: clickhouse/clickhouse-server:latest
+    platform: linux/amd64
     container_name: clickhouse
     ports:
       - "8123:8123"
@@ -10,6 +11,7 @@ services:
       - ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
 
   ssb_loader:
+    platform: linux/amd64
     build:
       context: .
       dockerfile: Dockerfile
