@@ -1,4 +1,4 @@
-CREATE TABLE customer
+CREATE TABLE IF NOT EXISTS customer
 (
     C_CUSTKEY       UInt32,
     C_NAME          String,
@@ -11,7 +11,7 @@ CREATE TABLE customer
 )
 ENGINE = MergeTree ORDER BY (C_CUSTKEY);
 
-CREATE TABLE lineorder
+CREATE TABLE IF NOT EXISTS lineorder
 (
     LO_ORDERKEY             UInt32,
     LO_LINENUMBER           UInt8,
@@ -33,7 +33,7 @@ CREATE TABLE lineorder
 )
 ENGINE = MergeTree PARTITION BY toYear(LO_ORDERDATE) ORDER BY (LO_ORDERDATE, LO_ORDERKEY);
 
-CREATE TABLE part
+CREATE TABLE IF NOT EXISTS part
 (
     P_PARTKEY       UInt32,
     P_NAME          String,
@@ -47,7 +47,7 @@ CREATE TABLE part
 )
 ENGINE = MergeTree ORDER BY P_PARTKEY;
 
-CREATE TABLE supplier
+CREATE TABLE IF NOT EXISTS supplier
 (
     S_SUPPKEY       UInt32,
     S_NAME          String,
@@ -59,7 +59,7 @@ CREATE TABLE supplier
 )
 ENGINE = MergeTree ORDER BY S_SUPPKEY;
 
-CREATE TABLE date
+CREATE TABLE IF NOT EXISTS date
 (
     D_DATEKEY            Date,
     D_DATE               FixedString(18),
