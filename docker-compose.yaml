@@ -1,8 +1,8 @@
 services:
   clickhouse:
     image: clickhouse/clickhouse-server:latest
-    container_name: clickhouse
     platform: linux/amd64
+    container_name: clickhouse
     ports:
       - "8123:8123"
       - "9000:9000"
@@ -11,7 +11,6 @@ services:
       CLICKHOUSE_PASSWORD: admin_password
     volumes:
       - clickhouse_data:/var/lib/clickhouse
-      #- ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
 
   ssb_loader:
     platform: linux/amd64
@@ -21,9 +20,9 @@ services:
     container_name: ssb_loader
     depends_on:
       - clickhouse
+    entrypoint: ["/bin/bash", "-c", "/opt/load_data.sh && exit 0"]
     volumes:
       - ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
-    command: ["bash", "/opt/load_data.sh"]
 
 volumes:
   clickhouse_data:
